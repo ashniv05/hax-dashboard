@@ -1,0 +1,69 @@
+{
+    "status": 200,
+    "data": [
+      {
+        "name": ,
+        "description": ,
+        "tags": ,// math, arithmetic, counting...
+        "image": ,
+        "demo_link": ,
+        "date_added":,
+        "attribute":, // beginner, intermediate, advanced (make array of objects)
+      },
+      {
+        "name": ,
+        "description": ,
+        "tags": ,// math, arithmetic, counting...
+        "image": ,
+        "demo_link": ,
+        "date_added":,
+        "attribute":, // beginner, intermediate, advanced
+      },
+      {
+        "name": ,
+        "description": ,
+        "tags": ,// math, arithmetic, counting...
+        "image": ,
+        "demo_link": ,
+        "date_added":,
+        "attribute":, // beginner, intermediate, advanced (make array of objects)
+      },
+      {
+        "name": ,
+        "description": ,
+        "tags": ,// math, arithmetic, counting...
+        "image": ,
+        "demo_link": ,
+        "date_added":,
+        "attribute":, // beginner, intermediate, advanced
+      },
+      {
+        "name": ,
+        "description": ,
+        "tags": ,// math, arithmetic, counting...
+        "image": ,
+        "demo_link": ,
+        "date_added":,
+        "attribute":, // beginner, intermediate, advanced
+      },
+      {
+        "name": ,
+        "description": ,
+        "tags": ,// math, arithmetic, counting...
+        "image": ,
+        "demo_link": ,
+        "date_added":,
+        "attribute":, // beginner, intermediate, advanced
+      },
+      {
+        "name": ,
+        "description": ,
+        "tags": ,// math, arithmetic, counting...
+        "image": ,
+        "demo_link": ,
+        "date_added":,
+        "attribute":, // beginner, intermediate, advanced
+      }
+    ]
+  }
+  
