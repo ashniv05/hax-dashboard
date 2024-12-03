@@ -1,0 +1,440 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "use-case-card.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "UseCaseCard",
+          "members": [
+            {
+              "kind": "method",
+              "name": "_toggleSelect"
+            },
+            {
+              "kind": "field",
+              "name": "tag",
+              "static": true,
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "name"
+            },
+            {
+              "kind": "field",
+              "name": "description",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "description"
+            },
+            {
+              "kind": "field",
+              "name": "tags",
+              "privacy": "public",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "attribute": "tags"
+            },
+            {
+              "kind": "field",
+              "name": "image",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "image"
+            },
+            {
+              "kind": "field",
+              "name": "demoLink",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "demoLink"
+            },
+            {
+              "kind": "field",
+              "name": "dateAdded",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "dateAdded"
+            },
+            {
+              "kind": "field",
+              "name": "attributes",
+              "privacy": "public",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "attribute": "attributes"
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "selected",
+              "reflects": true
+            }
+          ],
+          "events": [
+            {
+              "name": "use-case-selected",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "name"
+            },
+            {
+              "name": "description",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "description"
+            },
+            {
+              "name": "tags",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "fieldName": "tags"
+            },
+            {
+              "name": "image",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "image"
+            },
+            {
+              "name": "demoLink",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "demoLink"
+            },
+            {
+              "name": "dateAdded",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "dateAdded"
+            },
+            {
+              "name": "attributes",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "fieldName": "attributes"
+            },
+            {
+              "name": "selected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "selected"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "UseCaseCard",
+          "declaration": {
+            "name": "UseCaseCard",
+            "module": "use-case-card.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "UseCaseCard",
+            "module": "use-case-card.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "use-case-dashboard.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "UseCaseDashboard",
+          "members": [
+            {
+              "kind": "method",
+              "name": "loadUseCaseData"
+            },
+            {
+              "kind": "method",
+              "name": "filterUseCases"
+            },
+            {
+              "kind": "method",
+              "name": "handleFilterChange",
+              "parameters": [
+                {
+                  "name": "event"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "generateFilters"
+            },
+            {
+              "kind": "field",
+              "name": "tag",
+              "static": true,
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "useCases",
+              "privacy": "public",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "attribute": "useCases"
+            },
+            {
+              "kind": "field",
+              "name": "filteredUseCases",
+              "privacy": "public",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "attribute": "filteredUseCases"
+            },
+            {
+              "kind": "field",
+              "name": "selectedFilters",
+              "privacy": "public",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "attribute": "selectedFilters"
+            },
+            {
+              "kind": "field",
+              "name": "resultsCount",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "resultsCount"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "useCases",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "fieldName": "useCases"
+            },
+            {
+              "name": "filteredUseCases",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "fieldName": "filteredUseCases"
+            },
+            {
+              "name": "selectedFilters",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "fieldName": "selectedFilters"
+            },
+            {
+              "name": "resultsCount",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "fieldName": "resultsCount"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "DDDSuper",
+              "package": "@haxtheweb/d-d-d"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "UseCaseDashboard",
+            "module": "use-case-dashboard.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "use-case-filter.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "UseCaseFilter",
+          "members": [
+            {
+              "kind": "method",
+              "name": "_handleFilterChange",
+              "parameters": [
+                {
+                  "name": "e"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_resetFilters"
+            },
+            {
+              "kind": "field",
+              "name": "tag",
+              "static": true,
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "filters",
+              "privacy": "public",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "attribute": "filters"
+            },
+            {
+              "kind": "field",
+              "name": "selectedFilters",
+              "privacy": "public",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "attribute": "selectedFilters"
+            }
+          ],
+          "events": [
+            {
+              "name": "filters-changed",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "filters",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "fieldName": "filters"
+            },
+            {
+              "name": "selectedFilters",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "fieldName": "selectedFilters"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "UseCaseFilter",
+          "declaration": {
+            "name": "UseCaseFilter",
+            "module": "use-case-filter.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "UseCaseFilter",
+            "module": "use-case-filter.js"
+          }
+        }
+      ]
+    }
+  ]
+}
