@@ -140,9 +140,9 @@ export class UseCaseCard extends LitElement {
 
   render() {
     return html`
-      <div class="card" tabindex="0">
+      <div class="card">
         <img
-          src="${this.image || 'https://via.placeholder.com/300x150'}"
+          src="${this.image || 'image for'}"
           alt="${this.name || 'Image unavailable'}"
         />
         <div class="content">
