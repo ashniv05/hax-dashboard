@@ -3,63 +3,35 @@ import { DDDSuper } from "@haxtheweb/d-d-d";
 import "./use-case-card.js";
 
 class UseCaseDashboard extends DDDSuper(LitElement) {
-  static get styles() {
-    return css`
-      :host {
-        display: block;
-        padding: var(--ddd-spacing-4);
-        background-color: var(--ddd-theme-accent);
-      }
-
-      header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: var(--ddd-spacing-4);
-        padding-bottom: var(--ddd-spacing-2);
-        border-bottom: 1px solid var(--ddd-theme-default-gray);
-      }
-
-      header h1 {
-        margin: 0;
-        font-size: var(--ddd-font-size-xl);
-        color: var(--ddd-theme-primary);
-      }
-
-      .filters {
-        margin-bottom: var(--ddd-spacing-4);
-      }
-
-      .filters label {
-        display: flex;
-        align-items: center;
-        margin-bottom: var(--ddd-spacing-2);
-        font-size: var(--ddd-font-size-m);
-      }
-
-      .filters input {
-        margin-right: var(--ddd-spacing-2);
-      }
-
-      .results {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: var(--ddd-spacing-4);
-      }
-
-      .results-count {
-        font-size: var(--ddd-font-size-m);
-        margin-bottom: var(--ddd-spacing-2);
-      }
-    `;
-  }
+  static styles = css`
+    :host {
+      display: block;
+      font-family: var(--ddd-font-navigation);
+      background-color: var(--ddd-theme-default-background);
+      color: var(--ddd-primary-6);
+    }
+    .dashboard {
+      display: flex;
+      flex-direction: row;
+    }
+    .filters {
+      flex: 1;
+      margin-right: var(--ddd-spacing-2) 0 0 0;
+    }
+    .cards {
+      flex: 3;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+  `;
 
   static get properties() {
     return {
       useCases: { type: Array },
       filteredUseCases: { type: Array },
-      selectedFilters: { type: Array },
-      resultsCount: { type: Number },
+      filters: { type: Array },
+      results: { type: Number },
     };
   }
 
@@ -68,7 +40,7 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
     this.useCases = [];
     this.filteredUseCases = [];
     this.selectedFilters = [];
-    this.resultsCount = 0;
+    this.results = 0;
     this.loadUseCaseData();
   }
 
@@ -79,7 +51,7 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
         const data = await response.json();
         this.useCases = data.data;
         this.filteredUseCases = [...this.useCases];
-        this.resultsCount = this.filteredUseCases.length;
+        this.results = this.filteredUseCases.length;
       }
     } catch (error) {
       console.error("Error fetching use-case data:", error);
@@ -94,7 +66,7 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
         this.selectedFilters.every((filter) => useCase.tags.includes(filter))
       );
     }
-    this.resultsCount = this.filteredUseCases.length;
+    this.results = this.filteredUseCases.length;
   }
 
   handleFilterChange(event) {
@@ -111,7 +83,7 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
     return html`
       <header>
         <h1>Use Cases Dashboard</h1>
-        <div class="results-count">${this.resultsCount} Results</div>
+        <div class="results">${this.resultsCount} Results</div>
       </header>
 
       <div class="filters">

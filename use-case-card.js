@@ -1,189 +1,101 @@
+import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
 import { LitElement, html, css } from "lit";
 
-export class UseCaseCard extends LitElement {
-  constructor() {
+export class UseCaseCard extends DDDSuper(LitElement) {
+
+constructor() {
     super();
-    this.name = "";
+    this.title = "";
     this.description = "";
-    this.tags = [];
-    this.image = "";
-    this.demoLink = "";
-    this.dateAdded = "";
-    this.attributes = [];
-    this.selected = false;
+    this.imageURL = "";
+    this.demo = "";
   }
 
   static get properties() {
     return {
-      name: { type: String },
-      description: { type: String },
-      tags: { type: Array },
-      image: { type: String },
-      demoLink: { type: String },
-      dateAdded: { type: Number },
-      attributes: { type: Array },
-      selected: { type: Boolean, reflect: true },
+        id: { type: String },
+        tag: { type: String },
+        title: { type: String },
+        description: { type: String },
+        imageURL: { type: String },
+        demo: { type: String },
     };
   }
 
   static get styles() {
-    return css`
-      :host {
-        display: block;
-        max-width: 300px;
-        font-family: Arial, sans-serif;
-      }
-
-      .card {
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-        background-color: #ffffff;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        overflow: hidden;
-        transition: transform 0.2s, box-shadow 0.2s;
-      }
-
-      .card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-      }
-
-      .card img {
-        width: 100%;
-        height: 150px;
-        object-fit: cover;
-      }
-
-      .content {
-        padding: 16px;
-        text-align: left;
-      }
-
-      .content h3 {
-        font-size: 18px;
-        margin: 0 0 8px 0;
-        color: #333;
-      }
-
-      .content p {
-        font-size: 14px;
-        margin: 0 0 16px 0;
-        color: #666;
-        line-height: 1.5;
-      }
-
-      .tags {
-        margin-top: 8px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-      }
-
-      .tag {
-        background-color: #e9ecef;
-        color: #495057;
-        padding: 4px 8px;
-        border-radius: 12px;
-        font-size: 12px;
-      }
-
-      .actions {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 16px;
-        border-top: 1px solid #eee;
-        background-color: #f9f9f9;
-      }
-
-      .actions a {
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: bold;
-        color: #007bff;
-        transition: color 0.3s ease;
-      }
-
-      .actions a:hover {
-        color: #0056b3;
-      }
-
-      .select-button {
-        padding: 8px 16px;
-        border: none;
-        border-radius: 4px;
-        background-color: ${this.selected ? "#007bff" : "#28a745"};
-        color: #fff;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: bold;
-        transition: background-color 0.3s ease;
-      }
-
-      .select-button:hover {
-        background-color: ${this.selected ? "#0056b3" : "#218838"};
-      }
-
-      :host([selected]) .card {
-        border-color: #007bff;
-        box-shadow: 0px 4px 6px rgba(0, 123, 255, 0.3);
-      }
-
-      :host([selected]) .select-button {
-        background-color: #0056b3;
-      }
-    `;
+    return [
+      super.styles,
+      css`
+        /* Cards */
+        .use-case-card {
+          background: var(--ddd-theme-default-white);
+          border-radius: var(--ddd-radius-md);
+          border: var(--ddd-border-xs) solid var(--ddd-primary-4);
+          box-shadow: var(--ddd-boxShadow-sm);
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          padding: var(--ddd-spacing-4);
+          gap: var(--ddd-spacing-3);
+        }
+        .use-case-card img {
+          width: 100%;
+          height: 150px;
+          object-fit: cover;
+          background: var(--ddd-accent-2);
+        }
+        .use-case-card h3 {
+          font-size: var(--ddd-font-size-xxs);
+          font-weight: var(--ddd-font-weight-bold);
+          color: var(--ddd-primary-4);
+          margin: var(--ddd-spacing-2) 0 0 0;
+        }
+        .use-case-card p {
+          font-size: var(--ddd-font-size-3xs);
+          color: var(--ddd-primary-5);
+          line-height: var(--ddd-lh-150);
+          margin: 0 0 var(--ddd-spacing-4) 0;
+        }
+        .use-case-card a {
+          font-size: var(--ddd-font-size-3xs);
+          color: var(--ddd-theme-default-link);
+          text-decoration: none;
+          margin-bottom: var(--ddd-spacing-2);
+        }
+        .use-case-card a:hover {
+          text-decoration: underline;
+        }
+        .use-case-card button {
+          background-color: var(--ddd-primary-8);
+          color: var(--ddd-theme-default-white);
+          border: none;
+          border-radius: var(--ddd-radius-xs);
+          padding: var(--ddd-spacing-2) var(--ddd-spacing-4);
+          font-size: var(--ddd-font-size-3xs);
+          cursor: pointer;
+        }
+        .use-case-card button:hover {
+          background-color: var(--ddd-primary-6);
+        }
+      `,
+    ];
   }
 
   render() {
     return html`
-      <div class="card">
-        <img
-          src="${this.image || 'image for'}"
-          alt="${this.name || 'Image unavailable'}"
-        />
-        <div class="content">
-          <h3>${this.name || "Untitled"}</h3>
-          <p>${this.description || "No description provided."}</p>
-          <div class="tags">
-            ${this.tags.map(
-              (tag) => html`<span class="tag">${tag}</span>`
-            )}
-          </div>
-        </div>
-        <div class="actions">
-          <a href="${this.demoLink}" target="_blank">Demo ></a>
-          <button
-            class="select-button"
-            @click="${this._toggleSelect}"
-          >
-            ${this.selected ? "Selected" : "Select"}
-          </button>
-        </div>
+        <div class="card">
+          <img src="${this.imageURL}" alt="Image for ${this.title}">
+          <h3>${this.title}</h3>
+          <p>${this.description}</p>
+          <a href="${this.memo}" target="_blank">Memo --> </a>
       </div>
     `;
-  }
-
-  _toggleSelect() {
-    this.selected = !this.selected;
-    this.dispatchEvent(
-      new CustomEvent("use-case-selected", {
-        detail: {
-          selected: this.selected,
-          name: this.name,
-        },
-        bubbles: true,
-        composed: true,
-      })
-    );
   }
 
   static get tag() {
     return "use-case-card";
   }
 }
-
 customElements.define(UseCaseCard.tag, UseCaseCard);
