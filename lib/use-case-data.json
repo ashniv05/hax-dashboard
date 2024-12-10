@@ -21,7 +21,7 @@
       },
       {
         "name": "E-Commerce Site",
-        "description": "Create a storefront for your online business.",
+        "description": "Site for creating online business.",
         "tags": ["e-commerce", "store", "business"],
         "image": "images/ecommerce_site.png",
         "demo_link": "https://hax.cloud?use-case=ECommerceSite",

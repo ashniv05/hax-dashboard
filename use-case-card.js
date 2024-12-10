@@ -89,7 +89,7 @@ constructor() {
           <img src="${this.imageURL}" alt="Image for ${this.title}">
           <h3>${this.title}</h3>
           <p>${this.description}</p>
-          <a href="${this.memo}" target="_blank">Memo --> </a>
+          <a href="${this.memo}" target="_blank">Select </a>
       </div>
     `;
   }

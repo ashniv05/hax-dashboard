@@ -12,24 +12,25 @@
           "name": "UseCaseCard",
           "members": [
             {
-              "kind": "method",
-              "name": "_toggleSelect"
-            },
-            {
               "kind": "field",
               "name": "tag",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
               "static": true,
-              "readonly": true
+              "readonly": true,
+              "attribute": "tag"
             },
             {
               "kind": "field",
-              "name": "name",
+              "name": "title",
               "privacy": "public",
               "type": {
                 "text": "string"
               },
               "default": "\"\"",
-              "attribute": "name"
+              "attribute": "title"
             },
             {
               "kind": "field",
@@ -43,82 +44,57 @@
             },
             {
               "kind": "field",
-              "name": "tags",
-              "privacy": "public",
-              "type": {
-                "text": "array"
-              },
-              "default": "[]",
-              "attribute": "tags"
-            },
-            {
-              "kind": "field",
-              "name": "image",
+              "name": "imageURL",
               "privacy": "public",
               "type": {
                 "text": "string"
               },
               "default": "\"\"",
-              "attribute": "image"
+              "attribute": "imageURL"
             },
             {
               "kind": "field",
-              "name": "demoLink",
+              "name": "demo",
               "privacy": "public",
               "type": {
                 "text": "string"
               },
               "default": "\"\"",
-              "attribute": "demoLink"
+              "attribute": "demo"
             },
             {
               "kind": "field",
-              "name": "dateAdded",
+              "name": "id",
               "privacy": "public",
               "type": {
                 "text": "string"
               },
-              "default": "\"\"",
-              "attribute": "dateAdded"
-            },
-            {
-              "kind": "field",
-              "name": "attributes",
-              "privacy": "public",
-              "type": {
-                "text": "array"
-              },
-              "default": "[]",
-              "attribute": "attributes"
-            },
-            {
-              "kind": "field",
-              "name": "selected",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "selected",
-              "reflects": true
-            }
-          ],
-          "events": [
-            {
-              "name": "use-case-selected",
-              "type": {
-                "text": "CustomEvent"
-              }
+              "attribute": "id"
             }
           ],
           "attributes": [
             {
-              "name": "name",
+              "name": "id",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "id"
+            },
+            {
+              "name": "tag",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true,
+              "fieldName": "tag"
+            },
+            {
+              "name": "title",
               "type": {
                 "text": "string"
               },
               "default": "\"\"",
-              "fieldName": "name"
+              "fieldName": "title"
             },
             {
               "name": "description",
@@ -129,52 +105,26 @@
               "fieldName": "description"
             },
             {
-              "name": "tags",
-              "type": {
-                "text": "array"
-              },
-              "default": "[]",
-              "fieldName": "tags"
-            },
-            {
-              "name": "image",
+              "name": "imageURL",
               "type": {
                 "text": "string"
               },
               "default": "\"\"",
-              "fieldName": "image"
+              "fieldName": "imageURL"
             },
             {
-              "name": "demoLink",
+              "name": "demo",
               "type": {
                 "text": "string"
               },
               "default": "\"\"",
-              "fieldName": "demoLink"
-            },
+              "fieldName": "demo"
+            }
+          ],
+          "mixins": [
             {
-              "name": "dateAdded",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "dateAdded"
-            },
-            {
-              "name": "attributes",
-              "type": {
-                "text": "array"
-              },
-              "default": "[]",
-              "fieldName": "attributes"
-            },
-            {
-              "name": "selected",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "selected"
+              "name": "DDDSuper",
+              "package": "@haxtheweb/d-d-d/d-d-d.js"
             }
           ],
           "superclass": {
@@ -270,13 +220,13 @@
             },
             {
               "kind": "field",
-              "name": "resultsCount",
+              "name": "results",
               "privacy": "public",
               "type": {
                 "text": "number"
               },
               "default": "0",
-              "attribute": "resultsCount"
+              "attribute": "results"
             }
           ],
           "attributes": [
@@ -305,12 +255,12 @@
               "fieldName": "selectedFilters"
             },
             {
-              "name": "resultsCount",
+              "name": "results",
               "type": {
                 "text": "number"
               },
               "default": "0",
-              "fieldName": "resultsCount"
+              "fieldName": "results"
             }
           ],
           "mixins": [
@@ -347,22 +297,12 @@
           "members": [
             {
               "kind": "method",
-              "name": "_handleFilterChange",
+              "name": "handleFilterChange",
               "parameters": [
                 {
-                  "name": "e"
+                  "name": "event"
                 }
               ]
-            },
-            {
-              "kind": "method",
-              "name": "_resetFilters"
-            },
-            {
-              "kind": "field",
-              "name": "tag",
-              "static": true,
-              "readonly": true
             },
             {
               "kind": "field",
@@ -415,20 +355,14 @@
             "name": "LitElement",
             "package": "lit"
           },
+          "tagName": "use-case-filter",
           "customElement": true
         }
       ],
       "exports": [
         {
-          "kind": "js",
-          "name": "UseCaseFilter",
-          "declaration": {
-            "name": "UseCaseFilter",
-            "module": "use-case-filter.js"
-          }
-        },
-        {
           "kind": "custom-element-definition",
+          "name": "use-case-filter",
           "declaration": {
             "name": "UseCaseFilter",
             "module": "use-case-filter.js"

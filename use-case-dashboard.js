@@ -12,7 +12,7 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
       height: 100vh;
     }
 
-    /* Simplified Header */
+    /*  Header */
     .header {
       display: flex;
       justify-content: space-between;
@@ -56,12 +56,12 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
       font-weight: bold;
     }
 
-    /* Dashboard Layout */
+    /* Dashboard  */
     .dashboard {
       display: flex;
       padding: 16px;
       gap: 20px;
-      height: calc(100vh - 60px); /* Full height minus header */
+      height: calc(100vh - 60px); /* height - header */
       overflow: auto;
     }
 
@@ -134,7 +134,7 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
 
   async loadUseCaseData() {
     try {
-      const response = await fetch("./lib/use-case-data.json");
+      const response = await fetch(new URL("./lib/use-case-data.json", import.meta.url).href);
       if (response.ok) {
         const data = await response.json();
         this.useCases = data.data;
@@ -171,11 +171,10 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
 
   render() {
     return html`
-      <!-- Simplified Header -->
+      <!-- Header -->
       <div class="header">
         <div class="logo">
           <img src="https://avatars.githubusercontent.com/u/170651362?s=200&v=4" alt="HAX Logo" />
-          <span>HAX LOGO</span>
         </div>
 
         <div class="nav-links">

@@ -44,8 +44,8 @@ class UseCaseFilter extends LitElement {
   `;
 
   static properties = {
-    filters: { type: Array }, // List of available filters (tags)
-    selectedFilters: { type: Array }, // Currently selected filters
+    filters: { type: Array }, 
+    selectedFilters: { type: Array }, 
   };
 
   constructor() {
@@ -63,7 +63,7 @@ class UseCaseFilter extends LitElement {
       // Remove the filter from selectedFilters
       this.selectedFilters = this.selectedFilters.filter((f) => f !== filter);
     }
-    // Dispatch a custom event with updated filters
+    // custom event with updated filters
     this.dispatchEvent(
       new CustomEvent("filters-changed", {
         detail: this.selectedFilters,
