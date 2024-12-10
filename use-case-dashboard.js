@@ -9,30 +9,60 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
       font-family: var(--ddd-font-navigation, Arial, sans-serif);
       background-color: var(--ddd-theme-default-background, #f9f9f9);
       color: var(--ddd-primary-6, #333);
+      height: 100vh;
     }
 
-    header {
+    /* Simplified Header */
+    .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px;
-      background-color: var(--ddd-primary-4, #007bff);
-      color: var(--ddd-theme-default-white, #fff);
+      background-color: #ccc;
+      padding: 12px 20px;
     }
 
-    header h1 {
-      font-size: 24px;
-      margin: 0;
+    .header .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    header .results {
-      font-size: 18px;
+    .header .logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
     }
 
+    .header .nav-links {
+      display: flex;
+      gap: 20px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .header .nav-links a {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    .header .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    .header .account {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    /* Dashboard Layout */
     .dashboard {
       display: flex;
       padding: 16px;
       gap: 20px;
+      height: calc(100vh - 60px); /* Full height minus header */
+      overflow: auto;
     }
 
     .filters {
@@ -66,26 +96,21 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
       flex: 3;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
+      gap: 24px;
     }
 
-    .tag-bar {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 16px;
+    use-case-card {
+      background-color: var(--ddd-theme-default-white, #fff);
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .tag {
-      background-color: #007bff;
-      color: white;
-      padding: 8px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      cursor: pointer;
-    }
-
-    .tag:hover {
-      background-color: #0056b3;
+    use-case-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     }
   `;
 
@@ -146,11 +171,24 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
 
   render() {
     return html`
-      <header>
-        <h1>New Journey</h1>
-        <div class="results">${this.results} Results</div>
-      </header>
+      <!-- Simplified Header -->
+      <div class="header">
+        <div class="logo">
+          <img src="https://avatars.githubusercontent.com/u/170651362?s=200&v=4" alt="HAX Logo" />
+          <span>HAX LOGO</span>
+        </div>
 
+        <div class="nav-links">
+          <a>Merlin</a>
+          <a>Search Sites</a>
+        </div>
+
+        <div class="account">
+          acct name
+        </div>
+      </div>
+
+      <!-- Dashboard Section -->
       <div class="dashboard">
         <div class="filters">
           <h2>Template</h2>
