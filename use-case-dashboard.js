@@ -6,23 +6,86 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
   static styles = css`
     :host {
       display: block;
-      font-family: var(--ddd-font-navigation);
-      background-color: var(--ddd-theme-default-background);
-      color: var(--ddd-primary-6);
+      font-family: var(--ddd-font-navigation, Arial, sans-serif);
+      background-color: var(--ddd-theme-default-background, #f9f9f9);
+      color: var(--ddd-primary-6, #333);
     }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      background-color: var(--ddd-primary-4, #007bff);
+      color: var(--ddd-theme-default-white, #fff);
+    }
+
+    header h1 {
+      font-size: 24px;
+      margin: 0;
+    }
+
+    header .results {
+      font-size: 18px;
+    }
+
     .dashboard {
       display: flex;
-      flex-direction: row;
+      padding: 16px;
+      gap: 20px;
     }
+
     .filters {
       flex: 1;
-      margin-right: var(--ddd-spacing-2) 0 0 0;
+      background: var(--ddd-theme-default-white, #fff);
+      padding: 16px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
+
+    .filters h2 {
+      margin-top: 0;
+      font-size: 18px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 8px;
+    }
+
+    .filters label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      margin: 8px 0;
+    }
+
+    .filters input[type="checkbox"] {
+      margin: 0;
+    }
+
     .cards {
       flex: 3;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 20px;
+    }
+
+    .tag-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      background-color: #007bff;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .tag:hover {
+      background-color: #0056b3;
     }
   `;
 
@@ -30,7 +93,7 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
     return {
       useCases: { type: Array },
       filteredUseCases: { type: Array },
-      filters: { type: Array },
+      selectedFilters: { type: Array },
       results: { type: Number },
     };
   }
@@ -55,6 +118,8 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
       }
     } catch (error) {
       console.error("Error fetching use-case data:", error);
+      this.useCases = [];
+      this.filteredUseCases = [];
     }
   }
 
@@ -63,7 +128,7 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
       this.filteredUseCases = [...this.useCases];
     } else {
       this.filteredUseCases = this.useCases.filter((useCase) =>
-        this.selectedFilters.every((filter) => useCase.tags.includes(filter))
+        this.selectedFilters.every((filter) => useCase.tags?.includes(filter))
       );
     }
     this.results = this.filteredUseCases.length;
@@ -82,33 +147,34 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
   render() {
     return html`
       <header>
-        <h1>Use Cases Dashboard</h1>
-        <div class="results">${this.resultsCount} Results</div>
+        <h1>New Journey</h1>
+        <div class="results">${this.results} Results</div>
       </header>
 
-      <div class="filters">
-        <h2>Filters</h2>
-        ${this.generateFilters()}
-      </div>
+      <div class="dashboard">
+        <div class="filters">
+          <h2>Template</h2>
+          ${this.generateFilters()}
+        </div>
 
-      <div class="results">
-        ${this.filteredUseCases.map(
-          (useCase) => html`
-            <use-case-card
-              title="${useCase.name}"
-              description="${useCase.description}"
-              image="${useCase.image}"
-              demoLink="${useCase.demo_link}"
-            ></use-case-card>
-          `
-        )}
+        <div class="cards">
+          ${this.filteredUseCases.map(
+            (useCase) => html`
+              <use-case-card
+                title="${useCase.name}"
+                description="${useCase.description}"
+                demoLink="${useCase.demo_link}"
+              ></use-case-card>
+            `
+          )}
+        </div>
       </div>
     `;
   }
 
   generateFilters() {
     const uniqueTags = [
-      ...new Set(this.useCases.flatMap((useCase) => useCase.tags)),
+      ...new Set(this.useCases.flatMap((useCase) => useCase.tags || [])),
     ];
     return uniqueTags.map(
       (tag) => html`
