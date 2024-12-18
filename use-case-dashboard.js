@@ -5,14 +5,14 @@ import "./use-case-card.js";
 class UseCaseDashboard extends DDDSuper(LitElement) {
   static styles = css`
     :host {
-  display: block;
-  font-family: var(--ddd-font-primary, roboto);
-  background-color: var(--ddd-theme-default-potentialMidnight);
-  color: var(--ddd-theme-default-potentialMidnight); 
-  height: 100%; 
-  min-height: 100vh; 
-  overflow: hidden; /* hide black space */
-}
+      display: block;
+      font-family: var(--ddd-font-primary, roboto);
+      background-color: var(--ddd-theme-default-potentialMidnight);
+      color: var(--ddd-theme-default-potentialMidnight);
+      height: 100%;
+      min-height: 100vh;
+      overflow: hidden; /* hide black space */
+    }
 
     /* header */
     .header {
@@ -123,8 +123,8 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
     }
 
     .tags-list .tag:hover {
-      background-color: var(--ddd-theme-default-slateLight); 
-      color: var(--ddd-theme-default-potentialMidnight);
+      background-color: var(--ddd-theme-default-potentialMidnight);
+      color: var(--ddd-theme-default-slateMaxLight);
     }
 
     /* active (selected) tags */
@@ -135,11 +135,10 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
       border: 1px solid var(--ddd-theme-default-slateMaxLight);
     }
 
-
     /* reset button container */
     .reset-button-container {
       display: flex;
-      justify-content: flex-end; 
+      justify-content: flex-end;
       margin-right: var(--ddd-spacing-3);
       margin-top: var(--ddd-spacing-3);
     }
@@ -155,17 +154,17 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
       font-size: var(--ddd-font-size-4xs);
       cursor: pointer;
       display: inline-block;
-      transition: background-color 0.3s, color 0.3s; 
+      transition: background-color 0.3s, color 0.3s;
     }
 
     .reset-button:hover {
-      background-color: var(--ddd-theme-default-slateLight); 
-      color: var(--ddd-theme-default-potentialMidnight); 
+      background-color: var(--ddd-theme-default-slateLight);
+      color: var(--ddd-theme-default-potentialMidnight);
     }
     .sort-section {
       display: flex;
       align-items: center;
-      justify-content: flex-end; 
+      justify-content: flex-end;
       margin: var(--ddd-spacing-3) var(--ddd-spacing-5);
     }
 
@@ -174,7 +173,7 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
       text-align: right;
       margin-top: var(--ddd-spacing-2);
       margin-right: var(--ddd-spacing-5);
-      margin-top: var(--ddd-spacing-3)
+      margin-top: var(--ddd-spacing-3);
     }
 
     .continue-button {
@@ -197,14 +196,13 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
       cursor: not-allowed;
     }
 
-
     /* sort label */
     .sort-section label {
       font-size: var(--ddd-font-size-3xs);
       font-weight: var(--ddd-font-weight-bold);
       margin-right: var(--ddd-spacing-2);
       color: var(--ddd-theme-default-slateMaxLight);
-    } 
+    }
 
     /* dropdown  */
     #sort-select {
@@ -283,7 +281,7 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
     }
 
     use-case-card {
-      background-color:var(--ddd-theme-default-slateMaxLight);
+      background-color: var(--ddd-theme-default-slateMaxLight);
       border: 1px solid var(--ddd-theme-default-slateMaxLight);
       border-radius: var(--ddd-radius-xs);
       padding: var(--ddd-spacing-4);
@@ -325,19 +323,25 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
 
   async loadUseCaseData() {
     try {
-      const response = await fetch(new URL("./lib/use-case-data.json", import.meta.url).href);
+      const response = await fetch(
+        new URL("./lib/use-case-data.json", import.meta.url).href
+      );
       if (response.ok) {
         const data = await response.json();
         this.useCases = data.data;
         this.filteredUseCases = [...this.useCases];
         this.results = this.filteredUseCases.length;
-        this.uniqueTags = [...new Set(this.useCases.flatMap((item) => item.tags || []))];
+        this.uniqueTags = [
+          ...new Set(this.useCases.flatMap((item) => item.tags || [])),
+        ];
       }
     } catch (error) {
       console.error("Error fetching use-case data:", error);
       this.useCases = [];
       this.filteredUseCases = [];
-      this.uniqueTags = [...new Set(this.useCases.flatMap((item) => item.tags))];
+      this.uniqueTags = [
+        ...new Set(this.useCases.flatMap((item) => item.tags)),
+      ];
       this.sortUseCases();
     }
   }
@@ -345,14 +349,22 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
   filterUseCases() {
     if (this.selectedFilters.length === 0 && this.activeTags.length === 0) {
       this.filteredUseCases = this.useCases.filter((useCase) => {
-        const matchesSearch = useCase.name.toLowerCase().includes(this.searchBar.toLowerCase());
+        const matchesSearch = useCase.name
+          .toLowerCase()
+          .includes(this.searchBar.toLowerCase());
         return matchesSearch;
       });
     } else {
       this.filteredUseCases = this.useCases.filter((useCase) => {
-        const matchesSearch = useCase.name.toLowerCase().includes(this.searchBar.toLowerCase());
-        const matchesFilters = this.selectedFilters.every((filter) => useCase.tags?.includes(filter));
-        const matchesTags = this.activeTags.every((tag) => useCase.tags?.includes(tag));
+        const matchesSearch = useCase.name
+          .toLowerCase()
+          .includes(this.searchBar.toLowerCase());
+        const matchesFilters = this.selectedFilters.every((filter) =>
+          useCase.tags?.includes(filter)
+        );
+        const matchesTags = this.activeTags.every((tag) =>
+          useCase.tags?.includes(tag)
+        );
         return matchesSearch && matchesFilters && matchesTags;
       });
     }
@@ -371,6 +383,7 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
     this.searchBar = "";
     this.filteredUseCases = [...this.useCases];
     this.results = this.filteredUseCases.length;
+    this.activeUseCase = null; // deselect on reset
     this.requestUpdate();
   }
 
@@ -400,44 +413,60 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
 
   handleContinue() {
     if (this.activeUseCase) {
-      alert(`Selected Use Case: ${this.activeUseCase.title}`);
+      alert(`Selected Use Case: ${this.activeUseCase.name}`);
     }
-  }  
-
-  handleUseCaseSelect(useCase) {
-    if (this.activeUseCase === useCase) {
-      this.activeUseCase = null;
-    } else {
-      this.activeUseCase = useCase;
-    }
-    this.requestUpdate();
   }
-  
+
+    handleUseCaseSelect(useCase) {
+      if (this.activeUseCase === useCase) {
+          this.activeUseCase = null;
+        } else {
+          this.activeUseCase = useCase;
+      }
+      this.requestUpdate();
+      console.log('activeUseCase', this.activeUseCase)
+    }
+
+
   searchUseCase(useCase) {
     this.searchBar = useCase;
     this.filterUseCases();
   }
-  
 
   render() {
     return html`
       <div class="header">
         <div class="logo">
-          <img src="https://avatars.githubusercontent.com/u/170651362?s=200&v=4" alt="HAX Logo" />
+          <img
+            src="https://avatars.githubusercontent.com/u/170651362?s=200&v=4"
+            alt="HAX Logo"
+          />
         </div>
         <div class="nav-links">
           <a>Merlin</a>
           <a>Search Sites</a>
         </div>
-        <div class="account">apv5378@psu.edu</div>
+        <div class="account">apv5378</div>
       </div>
 
       <div class="new-journey">
         <h2>Pick a Journey and Start Exploring!</h2>
         <div class="use-case-examples">
           <ul>
-            <li><a href="javascript:void(0)" @click="${() => this.searchUseCase('Portfolio')}">Portfolio Website</a></li>
-            <li><a href="javascript:void(0)" @click="${() => this.searchUseCase('Course')}">Course Website</a></li>
+            <li>
+              <a
+                href="javascript:void(0)"
+                @click="${() => this.searchUseCase("Portfolio")}"
+                >Portfolio Website</a
+              >
+            </li>
+            <li>
+              <a
+                href="javascript:void(0)"
+                @click="${() => this.searchUseCase("Course")}"
+                >Course Website</a
+              >
+            </li>
           </ul>
         </div>
       </div>
@@ -447,69 +476,86 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
         <div class="tags-list">
           ${this.uniqueTags.map(
             (tag) => html`
-        <span
-          class="tag ${this.activeTags.includes(tag) ? 'active' : ''}"
-          @click="${() => this.handleTagClick(tag)}">
-          ${tag}
-      </span>
-      `
-      )}
-      </div>
-        
-        
+              <span
+                class="tag ${this.activeTags.includes(tag) ? "active" : ""}"
+                @click="${() => this.handleTagClick(tag)}"
+              >
+                ${tag}
+              </span>
+            `
+          )}
+        </div>
+
         <div class="reset-button-container">
-          <button @click="${this.resetFilters}" class="reset-button">Reset</button>
+          <button @click="${this.resetFilters}" class="reset-button">
+            Reset
+          </button>
         </div>
       </div>
 
       <div class="sort-section">
-          <label for="sort-select">Sort By:</label>
-          <select id="sort-select" @change="${this.handleSortChange}">
-            <option value="title">Title</option>
-            <option value="date">Date Added</option>
-          </select>
-        </div>
-
+        <label for="sort-select">Sort By:</label>
+        <select id="sort-select" @change="${this.handleSortChange}">
+          <option value="title">Title</option>
+          <option value="date">Date Added</option>
+        </select>
+      </div>
 
       <div class="dashboard">
         <div class="filters">
           <h2>Templates</h2>
           <div class="search-bar">
-            <input type="text" placeholder="Search templates..." @input="${this.handleSearchChange}" .value="${this.searchBar}" />
+            <input
+              type="text"
+              placeholder="Search templates..."
+              @input="${this.handleSearchChange}"
+              .value="${this.searchBar}"
+            />
           </div>
           ${this.generateFilters()}
         </div>
-        
-      <div class="cards">
-        ${this.filteredUseCases.map((useCase) => html`<use-case-card
-        title="${useCase.name}"
-        description="${useCase.description}"
-        demoLink="${useCase.demo_link}"
-        .selected="${this.activeUseCase === useCase}"
-        @select="${() => this.handleUseCaseSelect(useCase)}"
-      ></use-case-card>
-         `
-        )}
-      </div> 
 
-      <div class="continue-button-container">
-        <button
-          class="continue-button"
-          ?disabled="${!this.activeUseCase}"
-          @click="${this.handleContinue}"
-        >
-          Continue
-        </button>
+        <div class="cards">
+          ${this.filteredUseCases.map(
+            (useCase) => html`
+              <use-case-card
+                .useCase="${useCase}"
+                title="${useCase.name}"
+                imageURL="${useCase.imageURL}"
+                description="${useCase.description}"
+                demoLink="${useCase.demo_link}"
+                .selected="${this.activeUseCase === useCase}"
+                @select="${() => this.handleUseCaseSelect(useCase)}"
+              ></use-case-card>
+            `
+          )}
+        </div>
+
+        <div class="continue-button-container">
+          <button
+            class="continue-button"
+            ?disabled="${!this.activeUseCase}"
+            @click="${this.handleContinue}"
+          >
+            Continue
+          </button>
+        </div>
       </div>
     `;
   }
 
   generateFilters() {
-    const uniqueTags = [...new Set(this.useCases.flatMap((useCase) => useCase.tags || []))];
+    const uniqueTags = [
+      ...new Set(this.useCases.flatMap((useCase) => useCase.tags || [])),
+    ];
     return uniqueTags.map(
       (tag) =>
         html`<label>
-          <input type="checkbox" value="${tag}" @change="${this.handleFilterChange}" />
+          <input
+            type="checkbox"
+            value="${tag}"
+            @change="${this.handleFilterChange}"
+          />
           ${tag}
         </label>`
     );
