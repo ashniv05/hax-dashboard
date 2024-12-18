@@ -127,11 +127,20 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
       color: var(--ddd-theme-default-potentialMidnight);
     }
 
+    /* active (selected) tags */
+    .tags-list .tag.active {
+      background-color: var(--ddd-theme-default-potentialMidnight);
+      color: var(--ddd-theme-default-slateMaxLight);
+      font-weight: var(--ddd-font-weight-bold);
+      border: 1px solid var(--ddd-theme-default-slateMaxLight);
+    }
+
+
     /* reset button container */
     .reset-button-container {
       display: flex;
       justify-content: flex-end; 
-      margin-right: var(--ddd-spacing-5);
+      margin-right: var(--ddd-spacing-3);
       margin-top: var(--ddd-spacing-3);
     }
 
@@ -152,6 +161,67 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
     .reset-button:hover {
       background-color: var(--ddd-theme-default-slateLight); 
       color: var(--ddd-theme-default-potentialMidnight); 
+    }
+    .sort-section {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end; 
+      margin: var(--ddd-spacing-3) var(--ddd-spacing-5);
+    }
+
+    /* continue button */
+    .continue-button-container {
+      text-align: right;
+      margin-top: var(--ddd-spacing-2);
+      margin-right: var(--ddd-spacing-5);
+      margin-top: var(--ddd-spacing-3)
+    }
+
+    .continue-button {
+      background-color: var(--ddd-theme-default-potentialMidnight);
+      color: var(--ddd-theme-default-slateMaxLight);
+      padding: var(--ddd-spacing-2) var(--ddd-spacing-2);
+      border-radius: var(--ddd-radius-xs);
+      border: 1px solid var(--ddd-theme-default-slateMaxLight);
+      font-size: var(--ddd-font-size-3xs);
+      font-weight: var(--ddd-font-weight-regular);
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .continue-button[disabled] {
+      background-color: var(--ddd-theme-default-potentialMidnight);
+      color: var(--ddd-theme-default-slateMaxLight);
+      border-radius: var(--ddd-radius-xs);
+      border: 1px solid var(--ddd-theme-default-slateMaxLight);
+      cursor: not-allowed;
+    }
+
+
+    /* sort label */
+    .sort-section label {
+      font-size: var(--ddd-font-size-3xs);
+      font-weight: var(--ddd-font-weight-bold);
+      margin-right: var(--ddd-spacing-2);
+      color: var(--ddd-theme-default-slateMaxLight);
+    } 
+
+    /* dropdown  */
+    #sort-select {
+      padding: var(--ddd-spacing-2);
+      border: 1px solid var(--ddd-theme-default-slateLight);
+      border-radius: var(--ddd-radius-sm);
+      font-size: var(--ddd-font-size-3xs);
+      background-color: var(--ddd-theme-default-slateMaxLight);
+      color: var(--ddd-theme-default-potentialMidnight);
+      cursor: pointer;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    #sort-select:focus {
+      outline: none;
+      border-color: var(--ddd-theme-default-potentialMidnight);
+      box-shadow: 0 0 5px rgba(0, 31, 91, 0.5);
     }
 
     /* dashboard */
@@ -235,6 +305,8 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
       results: { type: Number },
       searchBar: { type: String },
       activeTags: { type: Array },
+      sortCriteria: { type: String },
+      activeUseCase: { type: Object },
     };
   }
 
@@ -246,6 +318,8 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
     this.results = 0;
     this.searchBar = "";
     this.activeTags = [];
+    this.sortCriteria = "title";
+    this.activeUseCase = null;
     this.loadUseCaseData();
   }
 
@@ -257,11 +331,14 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
         this.useCases = data.data;
         this.filteredUseCases = [...this.useCases];
         this.results = this.filteredUseCases.length;
+        this.uniqueTags = [...new Set(this.useCases.flatMap((item) => item.tags || []))];
       }
     } catch (error) {
       console.error("Error fetching use-case data:", error);
       this.useCases = [];
       this.filteredUseCases = [];
+      this.uniqueTags = [...new Set(this.useCases.flatMap((item) => item.tags))];
+      this.sortUseCases();
     }
   }
 
@@ -281,6 +358,11 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
     }
 
     this.results = this.filteredUseCases.length;
+  }
+
+  handleSortChange(event) {
+    this.sortCriteria = event.target.value;
+    this.sortUseCases();
   }
 
   resetFilters() {
@@ -316,10 +398,26 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
     this.filterUseCases();
   }
 
+  handleContinue() {
+    if (this.activeUseCase) {
+      alert(`Selected Use Case: ${this.activeUseCase.title}`);
+    }
+  }  
+
+  handleUseCaseSelect(useCase) {
+    if (this.activeUseCase === useCase) {
+      this.activeUseCase = null;
+    } else {
+      this.activeUseCase = useCase;
+    }
+    this.requestUpdate();
+  }
+  
   searchUseCase(useCase) {
     this.searchBar = useCase;
     this.filterUseCases();
   }
+  
 
   render() {
     return html`
@@ -345,16 +443,33 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
       </div>
 
       <div class="tags-section">
+        <h3>Filter by Tags</h3>
         <div class="tags-list">
-          <span class="tag" @click="${() => this.handleTagClick('Portfolio')}">Portfolio</span>
-          <span class="tag" @click="${() => this.handleTagClick('Course')}">Course</span>
-          <span class="tag" @click="${() => this.handleTagClick('Resume')}">Resume</span>
-          <span class="tag" @click="${() => this.handleTagClick('Research Website')}">Research Website</span>
-        </div>
+          ${this.uniqueTags.map(
+            (tag) => html`
+        <span
+          class="tag ${this.activeTags.includes(tag) ? 'active' : ''}"
+          @click="${() => this.handleTagClick(tag)}">
+          ${tag}
+      </span>
+      `
+      )}
+      </div>
+        
+        
         <div class="reset-button-container">
           <button @click="${this.resetFilters}" class="reset-button">Reset</button>
         </div>
       </div>
+
+      <div class="sort-section">
+          <label for="sort-select">Sort By:</label>
+          <select id="sort-select" @change="${this.handleSortChange}">
+            <option value="title">Title</option>
+            <option value="date">Date Added</option>
+          </select>
+        </div>
+
 
       <div class="dashboard">
         <div class="filters">
@@ -364,12 +479,27 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
           </div>
           ${this.generateFilters()}
         </div>
-        <div class="cards">
-          ${this.filteredUseCases.map(
-            (useCase) =>
-              html`<use-case-card title="${useCase.name}" description="${useCase.description}" demoLink="${useCase.demo_link}"></use-case-card>`
-          )}
-        </div>
+        
+      <div class="cards">
+        ${this.filteredUseCases.map((useCase) => html`<use-case-card
+        title="${useCase.name}"
+        description="${useCase.description}"
+        demoLink="${useCase.demo_link}"
+        .selected="${this.activeUseCase === useCase}"
+        @select="${() => this.handleUseCaseSelect(useCase)}"
+      ></use-case-card>
+         `
+        )}
+      </div> 
+
+      <div class="continue-button-container">
+        <button
+          class="continue-button"
+          ?disabled="${!this.activeUseCase}"
+          @click="${this.handleContinue}"
+        >
+          Continue
+        </button>
       </div>
     `;
   }

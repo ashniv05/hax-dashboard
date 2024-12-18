@@ -2,75 +2,94 @@
   "status": 200,
   "data": [
     {
+      "id": "1",
       "name": "Personal Blog",
       "description": "A customizable blog template.",
       "tags": ["Blog"],
       "imageURL": "https://htmlcolorcodes.com/assets/images/colors/baby-blue-color-solid-background-1920x1080.png",
       "demo_link": "https://hax.cloud?use-case=${this.name}",
+      "date_added": 1680384000,
       "attributes": ["Beginner"]
+      
     },
     {
+      "id": "2",
       "name": "Online Portfolio",
       "description": "Showcase your work and achievements with this portfolio layout.",
       "tags": ["Portfolio", "Resume"],
       "imageURL": "https://www.eastbaypaintcenter.com/cdn/shop/products/879EBF_1024x.png?v=1611254330",
       "demo_link": "https://hax.cloud?use-case=${this.name}",
+      "date_added": 1680979200,
       "attributes": ["Intermediate"]
     },
     {
+      "id": "3",
       "name": "E-Commerce Site",
       "description": "Site for creating online business.",
       "tags": ["Research Website"],
       "imageURL": "images/ecommerce_site.png",
       "demo_link": "https://hax.cloud?use-case=${this.name}",
+      "date_added": 1681574400,
       "attributes": ["Advanced"]
     },
     {
+      "id": "4",
       "name": "Educational Course",
       "description": "An interactive template for organizing digital courses.",
       "tags": ["Course"],
       "imageURL": "images/educational_course.png",
       "demo_link": "https://hax.cloud?use-case=${this.name}",
+      "date_added": 1682169600,
       "attributes": ["Beginner", "Intermediate"]
     },
     {
+      "id": "5",
       "name": "Landing Page",
       "description": "Design focused landing page template to capture leads.",
       "tags": ["Research Website"],
       "imageURL": "images/landing_page.png",
       "demo_link": "https://hax.cloud?use-case=${this.name}",
+      "date_added": 1682764800,
       "attributes": ["Beginner"]
     },
     {
+      "id": "6",
       "name": "Company Website",
       "description": "A professional website layout for businesses of any size.",
       "tags": ["Research Website"],
       "imageURL": "images/company_website.png",
       "demo_link": "https://hax.cloud?use-case=${this.name}",
+      "date_added": 1683360000,
       "attributes": ["Intermediate"]
     },
     {
+      "id": "7",
       "name": "Photo Gallery",
       "description": "Display your photos with a gallery.",
       "tags": ["Research Website"],
       "imageURL": "images/photo_gallery.png",
       "demo_link": "https://hax.cloud?use-case=${this.name}",
+      "date_added": 1683955200,
       "attributes": ["Beginner", "Intermediate"]
     },
     {
+      "id": "8",
       "name": "Event Page",
       "description": "Manage event information with this template.",
       "tags": ["Research Website"],
       "imageURL": "images/event_page.png",
       "demo_link": "https://hax.cloud?use-case=${this.name}",
+      "date_added": 1684550400,
       "attributes": ["Intermediate"]
     },
     {
+      "id": "9",
       "name": "Knowledge Base",
       "description": "Organize articles and tutorials in a searchable format.",
       "tags": ["Research Website"],
       "imageURL": "images/knowledge_base.png",
       "demo_link": "https://hax.cloud?use-case=${this.name}",
+      "date_added": 1685145600,
       "attributes": ["Advanced"]
     }
   ]

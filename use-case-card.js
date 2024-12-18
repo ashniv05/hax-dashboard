@@ -5,10 +5,12 @@ export class UseCaseCard extends DDDSuper(LitElement) {
 
 constructor() {
     super();
+    this.id = "";
     this.title = "";
     this.description = "";
     this.imageURL = "";
     this.demoLink = "";
+    this.selected = false;
   }
 
   static get properties() {
@@ -20,6 +22,7 @@ constructor() {
         imageURL: { type: String },
         demo: { type: String },
         demoLink: { type: String },
+        selected: { type: Boolean },
     };
   }
 
@@ -40,6 +43,9 @@ constructor() {
           text-align: center;
           padding: var(--ddd-spacing-4);
           gap: var(--ddd-spacing-3);
+        }
+        .use-case-card[selected] {
+          border: 2px solid var(--ddd-theme-default-potentialMidnight);
         }
         .use-case-card img {
           width: 100%;
@@ -79,8 +85,17 @@ constructor() {
    // button click
    handleSelectClick() {
     console.log(`Selected ${this.title}`); 
+
+    this.dispatchEvent(
+      new CustomEvent("select", {
+        detail: { id: this.id, title: this.title },
+        bubbles: true,
+        composed: true,
+      })
+    );
+  
     if (this.demoLink) {
-      window.open(this.demoLink, "_blank");  // demo link in new tab
+      window.open(this.demoLink, "_blank");
     } else {
       console.log("Demo link not available.");
     }
@@ -92,7 +107,9 @@ constructor() {
           <img src="${this.imageURL}" alt="Image for ${this.title}">
           <h3>${this.title}</h3>
           <p>${this.description}</p>
-          <button @click="${this.handleSelectClick}">Select</button>
+          <button @click="${this.handleSelectClick}">
+          ${this.selected ? "Selected" : "Select"}
+        </button>
       </div>
     `;
   }
