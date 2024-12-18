@@ -6,9 +6,9 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
   static styles = css`
     :host {
   display: block;
-  font-family: var(--ddd-font-navigation, Arial, sans-serif);
-  background-color: var(--ddd-theme-default-background, #ffffff);
-  color: #001f5b; 
+  font-family: var(--ddd-font-primary, roboto);
+  background-color: var(--ddd-theme-default-potentialMidnight);
+  color: var(--ddd-theme-default-potentialMidnight); 
   height: 100%; 
   min-height: 100vh; 
   overflow: hidden; /* hide black space */
@@ -19,33 +19,33 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background-color: #ccc;
-      padding: 12px 20px;
+      background-color: var(--ddd-theme-default-slateMaxLight);
+      padding: var(--ddd-spacing-3) var(--ddd-spacing-6);
     }
 
     .header .logo {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: var(--ddd-spacing-3);
     }
 
     .header .logo img {
       width: 40px;
       height: 40px;
-      border-radius: 50%;
+      border-radius: var(--ddd-radius-sm);
     }
 
     .header .nav-links {
       display: flex;
-      gap: 20px;
-      font-size: 16px;
-      font-weight: bold;
-      color: #001f5b;
+      gap: var(--ddd-spacing-5);
+      font-size: var(--ddd-font-size-3xs);
+      font-weight: var(--ddd-font-weight-bold);
+      color: var(--ddd-theme-default-navy);
     }
 
     .header .nav-links a {
       text-decoration: none;
-      color: inherit;
+      color: var(--ddd-theme-default-navy);
       cursor: pointer;
     }
 
@@ -54,39 +54,39 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
     }
 
     .header .account {
-      font-size: 16px;
-      font-weight: bold;
+      font-size: var(--ddd-font-size-3xs);
+      font-weight: var(--ddd-font-weight-regular);
     }
 
     /* new journey */
     .new-journey {
       text-align: center;
-      margin: 40px 0;
-      padding: 20px;
-      background-color: var(--ddd-theme-default-white, #fef8f8);
-      border-radius: 8px;
+      margin: var(--ddd-spacing-5) auto;
+      padding: var(--ddd-spacing-5);
+      background-color: var(--ddd-theme-default-slateMaxLight);
+      border-radius: var(--ddd-radius-lg);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     .new-journey h2 {
       text-align: center;
-      font-size: 28px;
-      margin-bottom: 10px;
-      color: #001f5b;
+      font-size: var(--ddd-font-size-xl);
+      margin-bottom: var(--ddd-spacing-3);
+      color: var(--ddd-theme-default-potentialMidnight);
     }
 
     .use-case-examples ul {
       list-style-type: none;
-      padding: 0;
+      padding: var(--ddd-spacing-0);
     }
 
     .use-case-examples li {
-      margin: 10px 0;
+      margin: var(--ddd-spacing-2) var(--ddd-spacing-0);
     }
 
     .use-case-examples a {
       text-decoration: none;
-      color: #001f5b;
+      color: var(--ddd-theme-default-potentialMidnight);
       cursor: pointer;
     }
 
@@ -97,66 +97,68 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
     /* tags */
     .tags-section {
       text-align: center;
-      margin: 20px 0 30px 0;
+      margin: var(--ddd-spacing-5) var(--ddd-spacing-7);
     }
 
     .tags-section h3 {
-      font-size: 18px;
-      margin-bottom: 10px;
+      font-size: var(--ddd-font-size-md);
+      margin-bottom: var(--ddd-spacing-5);
     }
 
     .tags-list {
       display: flex;
-      gap: 15px;
+      gap: var(--ddd-spacing-4);
       justify-content: center;
     }
 
     .tags-list .tag {
-      background-color: #f4f4f4;
-      padding: 8px 15px;
-      border-radius: 25px;
+      background-color: var(--ddd-theme-default-slateMaxLight);
+      padding: var(--ddd-spacing-2) var(--ddd-spacing-4);
+      border-radius: var(--ddd-radius-lg);
       cursor: pointer;
-      font-size: 14px;
-      font-weight: bold;
-      color: #001f5b;
+      font-size: var(--ddd-font-size-3xs);
+      font-weight: var(--ddd-font-weight-bold);
+      color: var(--ddd-theme-default-potentialMidnight);
       transition: background-color 0.3s;
     }
 
     .tags-list .tag:hover {
-      background-color: #ddd;
+      background-color: var(--ddd-theme-default-slateLight); 
+      color: var(--ddd-theme-default-potentialMidnight);
     }
 
     /* reset button container */
     .reset-button-container {
       display: flex;
-      justify-content: flex-end; /* Align the button to the right */
-      margin-right: 20px; /* Space between button and screen edge */
-      margin-top: 10px;
+      justify-content: flex-end; 
+      margin-right: var(--ddd-spacing-5);
+      margin-top: var(--ddd-spacing-3);
     }
 
     /* reset button */
     .reset-button {
-      background-color: #ffffff; /* White background */
-      color: #001f5b; /* Dark blue text */
-      border: 1px solid #001f5b; /* Dark blue border */
+      background-color: var(--ddd-theme-default-slateMaxLight);
+      color: var(--ddd-theme-default-potentialMidnight);
+      font-weight: var(--ddd-font-weight-bold);
+      border: 1px solid var(--ddd-theme-default-potentialMidnight);
       border-radius: var(--ddd-radius-xs);
       padding: var(--ddd-spacing-1) var(--ddd-spacing-2);
       font-size: var(--ddd-font-size-4xs);
       cursor: pointer;
       display: inline-block;
-      transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+      transition: background-color 0.3s, color 0.3s; 
     }
 
     .reset-button:hover {
-      background-color: #afb1b4; /* Dark blue on hover */
-      color: #ffffff; /* White text on hover */
+      background-color: var(--ddd-theme-default-slateLight); 
+      color: var(--ddd-theme-default-potentialMidnight); 
     }
 
     /* dashboard */
     .dashboard {
       display: flex;
-      padding: 16px;
-      gap: 20px;
+      padding: var(--ddd-spacing-4);
+      gap: var(--ddd-spacing-5);
       height: calc(100vh - 60px); /* height - header */
       overflow: auto;
     }
@@ -166,55 +168,55 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
       flex-direction: column;
       justify-content: flex-start;
       position: relative;
-      background: var(--ddd-theme-default-white, #fff);
-      padding: 16px;
-      border-radius: 8px;
+      background: var(--ddd-theme-default-slateMaxLight);
+      padding: var(--ddd-spacing-4);
+      border-radius: var(--ddd-radius-xs);
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .filters h2 {
-      margin-top: 0;
-      font-size: 18px;
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 8px;
+      margin-top: var(--ddd-spacing-0);
+      font-size: var(--ddd-font-size-xs);
+      border-bottom: 1px solid var(--ddd-theme-default-slateMaxLight);
+      padding-bottom: var(--ddd-spacing-2);
     }
 
     .filters label {
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      margin: 8px 0;
+      gap: var(--ddd-spacing-2);
+      font-size: var(--ddd-font-size-3xs);
+      margin: var(--ddd-spacing-2) var(--ddd-spacing-0);
     }
 
     .filters input[type="checkbox"] {
-      margin: 0;
+      margin: var(--ddd-spacing-0);
     }
 
     .filters .search-bar {
-      margin-bottom: 16px;
+      margin-bottom: var(--ddd-spacing-4);
     }
 
     .filters input[type="text"] {
       width: 95%;
-      padding: 8px;
-      font-size: 14px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
+      padding: var(--ddd-spacing-2);
+      font-size: var(--ddd-font-size-3xs);
+      border: 1px solid var(--ddd-theme-default-slateMaxLight);
+      border-radius: var(--ddd-radius-xs);
     }
 
     .cards {
       flex: 3;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* adjust card width */
-      gap: 24px;
+      gap: var(--ddd-spacing-6);
     }
 
     use-case-card {
-      background-color: var(--ddd-theme-default-white, #fff);
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 16px;
+      background-color:var(--ddd-theme-default-slateMaxLight);
+      border: 1px solid var(--ddd-theme-default-slateMaxLight);
+      border-radius: var(--ddd-radius-xs);
+      padding: var(--ddd-spacing-4);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }

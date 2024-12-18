@@ -4,7 +4,7 @@ class UseCaseFilter extends LitElement {
   static styles = css`
     :host {
       display: block;
-      background: var(--ddd-theme-default-white);
+      background: var(--ddd-theme-default-slateMaxLight);
       padding: var(--ddd-spacing-6);
       border-radius: var(--ddd-radius-md);
       box-shadow: var(--ddd-boxShadow-sm);
@@ -17,7 +17,7 @@ class UseCaseFilter extends LitElement {
       font-weight: var(--ddd-font-weight-bold);
       border-bottom: var(--ddd-border-xs);
       padding-bottom: var(--ddd-spacing-2);
-      color: var(--ddd-primary-4);
+      color: var(--ddd-theme-default-slateMaxLight);
     }
 
     .filters {
@@ -39,7 +39,7 @@ class UseCaseFilter extends LitElement {
 
     .filter-item label {
       font-size: var(--ddd-font-size-3xs);
-      color: var(--ddd-primary-5);
+      color: var(--ddd-theme-default-potentialMidnight);
     }
   `;
 

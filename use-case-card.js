@@ -29,9 +29,9 @@ constructor() {
       css`
         /* cards */
         .use-case-card {
-          background: var(--ddd-theme-default-white);
+          background: var(--ddd-theme-default-slateMaxLight);
           border-radius: var(--ddd-radius-md);
-          border: var(--ddd-border-xs) solid var(--ddd-primary-4);
+          border: var(--ddd-border-xs) solid  var(--ddd-theme-default-potentialMidnight);
           box-shadow: var(--ddd-boxShadow-sm);
           overflow: hidden;
           display: flex;
@@ -45,23 +45,23 @@ constructor() {
           width: 100%;
           height: 150px;
           object-fit: cover;
-          background: var(--ddd-accent-2);
+          background: var(--ddd-theme-default-accent);
         }
         .use-case-card h3 {
           font-size: var(--ddd-font-size-xxs);
           font-weight: var(--ddd-font-weight-bold);
-          color: var(--ddd-primary-4);
+          color:  var(--ddd-theme-default-potentialMidnight);
           margin: var(--ddd-spacing-2) 0 0 0;
         }
         .use-case-card p {
           font-size: var(--ddd-font-size-xs);
-          color: var(--ddd-primary-5);
+          color:  var(--ddd-theme-default-potentialMidnight);
           line-height: var(--ddd-lh-150);
           margin: 0 0 var(--ddd-spacing-4) 0;
         }
         .use-case-card button {
-          background-color: var(--ddd-theme-default-beaver80);
-          color: var(--ddd-theme-default-white);
+          background-color: var(--ddd-theme-default-navy);
+          color: var(--ddd-theme-default-slateMaxLight);
           border: var(-ddd-border-md);
           border-radius: var(--ddd-radius-xs);
           padding: var(--ddd-spacing-2) var(--ddd-spacing-4);
