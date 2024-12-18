@@ -327,17 +327,17 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
         new URL("./lib/use-case-data.json", import.meta.url).href
       );
       if (response.ok) {
-        const data = await response.json();
-        this.useCases = data.data.map((useCase) => ({
-          ...useCase,
-          imageURL: new URL(`./imgs/public/${useCase.imageURL}`, import.meta.url).href,
-        }));
-        this.filteredUseCases = [...this.useCases];
-        this.results = this.filteredUseCases.length;
-        this.uniqueTags = [
-          ...new Set(this.useCases.flatMap((item) => item.tags || [])),
-        ];
-      }
+      const data = await response.json();
+      this.useCases = data.data.map((useCase) => ({
+        ...useCase,
+        imageURL: new URL(`./imgs/public/${useCase.imageURL}`, import.meta.url).href,
+      }));
+      this.filteredUseCases = [...this.useCases];
+      this.results = this.filteredUseCases.length;
+      this.uniqueTags = [
+        ...new Set(this.useCases.flatMap((item) => item.tags || [])),
+      ];
+    }
     } catch (error) {
       console.error("Error fetching use-case data:", error);
       this.useCases = [];
