@@ -44,26 +44,28 @@ class UseCaseFilter extends LitElement {
   `;
 
   static properties = {
-    filters: { type: Array }, 
-    selectedFilters: { type: Array }, 
+    selectedFilters: { type: Array }, // array
   };
 
   constructor() {
     super();
-    this.filters = [];
-    this.selectedFilters = [];
+    // filters
+    this.filters = ["Portfolio", "Course", "Resume", "Blog", "Research Website"];
+    this.selectedFilters = []; 
   }
 
   handleFilterChange(event) {
     const filter = event.target.value;
+
     if (event.target.checked) {
-      // Add the filter to selectedFilters
+      // add filter to selectedFilters when checked
       this.selectedFilters = [...this.selectedFilters, filter];
     } else {
-      // Remove the filter from selectedFilters
+      // remove filter from selectedFilters when unchecked
       this.selectedFilters = this.selectedFilters.filter((f) => f !== filter);
     }
-    // custom event with updated filters
+
+    // updated filters
     this.dispatchEvent(
       new CustomEvent("filters-changed", {
         detail: this.selectedFilters,

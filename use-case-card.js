@@ -8,7 +8,7 @@ constructor() {
     this.title = "";
     this.description = "";
     this.imageURL = "";
-    this.demo = "";
+    this.demoLink = "";
   }
 
   static get properties() {
@@ -19,6 +19,7 @@ constructor() {
         description: { type: String },
         imageURL: { type: String },
         demo: { type: String },
+        demoLink: { type: String },
     };
   }
 
@@ -26,7 +27,7 @@ constructor() {
     return [
       super.styles,
       css`
-        /* Cards */
+        /* cards */
         .use-case-card {
           background: var(--ddd-theme-default-white);
           border-radius: var(--ddd-radius-md);
@@ -53,34 +54,36 @@ constructor() {
           margin: var(--ddd-spacing-2) 0 0 0;
         }
         .use-case-card p {
-          font-size: var(--ddd-font-size-3xs);
+          font-size: var(--ddd-font-size-xs);
           color: var(--ddd-primary-5);
           line-height: var(--ddd-lh-150);
           margin: 0 0 var(--ddd-spacing-4) 0;
         }
-        .use-case-card a {
-          font-size: var(--ddd-font-size-3xs);
-          color: var(--ddd-theme-default-link);
-          text-decoration: none;
-          margin-bottom: var(--ddd-spacing-2);
-        }
-        .use-case-card a:hover {
-          text-decoration: underline;
-        }
         .use-case-card button {
-          background-color: var(--ddd-primary-8);
+          background-color: var(--ddd-theme-default-beaver80);
           color: var(--ddd-theme-default-white);
-          border: none;
+          border: var(-ddd-border-md);
           border-radius: var(--ddd-radius-xs);
           padding: var(--ddd-spacing-2) var(--ddd-spacing-4);
-          font-size: var(--ddd-font-size-3xs);
+          font-size: var(--ddd-font-size-xs);
           cursor: pointer;
         }
+
         .use-case-card button:hover {
-          background-color: var(--ddd-primary-6);
+          background-color: var(--ddd-theme-default-slateGray);
         }
       `,
     ];
+  }
+
+   // button click
+   handleSelectClick() {
+    console.log(`Selected ${this.title}`); 
+    if (this.demoLink) {
+      window.open(this.demoLink, "_blank");  // demo link in new tab
+    } else {
+      console.log("Demo link not available.");
+    }
   }
 
   render() {
@@ -89,7 +92,7 @@ constructor() {
           <img src="${this.imageURL}" alt="Image for ${this.title}">
           <h3>${this.title}</h3>
           <p>${this.description}</p>
-          <a href="${this.memo}" target="_blank">Select </a>
+          <button @click="${this.handleSelectClick}">Select</button>
       </div>
     `;
   }
