@@ -328,7 +328,10 @@ class UseCaseDashboard extends DDDSuper(LitElement) {
       );
       if (response.ok) {
         const data = await response.json();
-        this.useCases = data.data;
+        this.useCases = data.data.map((useCase) => ({
+          ...useCase,
+          imageURL: new URL(`./imgs/public/${useCase.imageURL}`, import.meta.url).href,
+        }));
         this.filteredUseCases = [...this.useCases];
         this.results = this.filteredUseCases.length;
         this.uniqueTags = [
