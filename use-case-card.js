@@ -11,6 +11,7 @@ constructor() {
     this.imageURL = "";
     this.demoLink = "";
     this.selected = false;
+    this.useCase = {};
   }
 
   static get properties() {
@@ -22,7 +23,8 @@ constructor() {
         imageURL: { type: String },
         demo: { type: String },
         demoLink: { type: String },
-        selected: { type: Boolean },
+        selected: { type: Boolean, reflect: true },
+        useCase: { type: Object },
     };
   }
 
@@ -44,7 +46,7 @@ constructor() {
           padding: var(--ddd-spacing-4);
           gap: var(--ddd-spacing-3);
         }
-        .use-case-card[selected] {
+        .use-case-card.selected {
           border: 2px solid var(--ddd-theme-default-potentialMidnight);
         }
         .use-case-card img {
@@ -66,7 +68,7 @@ constructor() {
           margin: 0 0 var(--ddd-spacing-4) 0;
         }
         .use-case-card button {
-          background-color: var(--ddd-theme-default-navy);
+          background-color: var(--ddd-theme-default-potentialMidnight);
           color: var(--ddd-theme-default-slateMaxLight);
           border: var(-ddd-border-md);
           border-radius: var(--ddd-radius-xs);
@@ -88,7 +90,7 @@ constructor() {
 
     this.dispatchEvent(
       new CustomEvent("select", {
-        detail: { id: this.id, title: this.title },
+        detail: this.useCase,
         bubbles: true,
         composed: true,
       })
@@ -103,15 +105,15 @@ constructor() {
 
   render() {
     return html`
-        <div class="card">
-          <img src="${this.imageURL}" alt="Image for ${this.title}">
-          <h3>${this.title}</h3>
-          <p>${this.description}</p>
-          <button @click="${this.handleSelectClick}">
+      <div class="use-case-card" ?selected="${this.selected}">
+      <img src="${this.imageURL}" alt="Image for ${this.title}" />
+        <h3>${this.title}</h3>
+        <p>${this.description}</p>
+        <button @click="${this.handleSelectClick}">
           ${this.selected ? "Selected" : "Select"}
         </button>
       </div>
-    `;
+  `;
   }
 
   static get tag() {
